@@ -52,8 +52,11 @@ try {
   expect(tools.tools.length >= 20, "expected 20+ tools");
 
   const health = await call("server_health");
-  log(`server_health -> ok=${health.data.ok} apiHost=${health.data.apiHost} latencyMs=${health.data.latencyMs} activeRooms=${health.data.activeRooms}`);
-  expect(health.data.ok === true, "server unreachable");
+  log(`server_health -> ok=${health.data?.ok} apiHost=${health.data?.apiHost} latencyMs=${health.data?.latencyMs} activeRooms=${health.data?.activeRooms}`);
+  if (health.data?.ok !== true) {
+    // Stop here with a readable message instead of a TypeError on the next step.
+    throw new Error(`server unreachable at ${config.apiHost}; start it with: docker run --rm -p 7880:7880 livekit/livekit-server --dev --bind 0.0.0.0 --node-ip 127.0.0.1`);
+  }
 
   const spin = await call<WorkshopManifest>("workshop_spinup", { event: EVENT, teams: ["Otters", "Herons"], seatsPerTeam: 2, ttl: "1h", mentor: true });
   const m = spin.data;
