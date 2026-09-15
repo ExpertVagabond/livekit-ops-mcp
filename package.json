@@ -1,0 +1,56 @@
+{
+  "name": "livekit-ops-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that gives an AI agent operator control of a LiveKit deployment: rooms, tokens, participants, egress, ingress, data messages, plus a hackathon workshop kit.",
+  "license": "MIT",
+  "author": "Matthew Karsten <matthewkarstenconnects@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ExpertVagabond/livekit-ops-mcp"
+  },
+  "keywords": [
+    "livekit",
+    "mcp",
+    "model-context-protocol",
+    "webrtc",
+    "voice-ai",
+    "realtime",
+    "hackathon",
+    "workshop"
+  ],
+  "type": "module",
+  "bin": {
+    "livekit-ops-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run test/unit",
+    "test:unit": "vitest run test/unit",
+    "smoke": "tsx scripts/smoke.ts",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "livekit-server-sdk": "^2.19.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@livekit/rtc-node": "^1.0.0",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.23.0",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
+  }
+}
